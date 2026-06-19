@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    # Do a normal BFS to traverse the tree level by level,
+    # and only add to the solution the last one of each level.
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: return []
+        head = root
+        queue = deque()
+        queue.append(head)
+        solution = []
+        while queue:
+            node = None
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            solution.append(node.val)            
+        return solution
